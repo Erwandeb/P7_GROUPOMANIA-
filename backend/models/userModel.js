@@ -1,7 +1,8 @@
+/*
 module.exports = (sequelize, DataTypes) => {
 
   const User = sequelize.define('User', {
-    uid: {
+    id: {
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
@@ -20,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,validate: {
+      allowNull: false,
+      validate: {
         notEmpty: true,
         min: 4,
         max: 15,
@@ -28,3 +30,4 @@ module.exports = (sequelize, DataTypes) => {
     }
   })
 }
+*/

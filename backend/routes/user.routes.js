@@ -9,4 +9,21 @@ router.post("/login", authController.login);
 
 
 
+// Add user
+router.post('/user', (req,res) =>{
+    let user = {
+        titre: 'erwan',
+        email:'test'
+    }
+    let sql = 'INSERT INTO user SET ?'
+    let query = db.query(sql, user, (err, result)=>{
+        if(error){
+            throw error
+        }
+        console.log(result);
+        res.send('user has been added')
+    })
+  })
+
+
 module.exports = router;

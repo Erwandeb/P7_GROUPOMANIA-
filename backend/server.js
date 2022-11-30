@@ -9,7 +9,8 @@ const bodyparser = require('body-parser');
 const cookieparser = require('cookie-parser');
 const path = require('path');
 const { connect } = require('http2');
-
+const database = require('./config/database-config/dbConfig');
+const { connection } = require('mongoose');
 
 /**
  * TO DO:
@@ -29,45 +30,9 @@ app.use(bodyparser.json());
 app.use(cookieparser());
 
 
-
 // Ressource
 // https://www.youtube.com/watch?v=EN6Dx22cPRI&ab_channel=TraversyMedia
 
-/*
-
-// Creat connection
-const db = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'groupomania'
-});
-*/
-
-// Connect
-/*
-db.connect((err) =>{
-    if(err){
-        return err;
-    }
-    console.log('Mysql is connected with id: ' + db.threadId);
-})
-*/
-
-
-/*
-// Create user table
-app.get('/createposttable', (req,res) =>{
-    let sql = 'CREATE TABLE users(id int AUTO_INCREMENT, email VARCHAR(255))'
-    db.query(sql, (err, result)=>{
-        if(error){
-            return error
-        }
-        console.log(result);
-        res.send('create user table')
-    })
-})
-*/
 
 // User routes
 app.use('/api/auth/', userRoutes)
@@ -79,3 +44,18 @@ app.listen(process.env.PORT, ()=>{
 })
 
 
+
+const databasetest = mysql.createConnection({
+    HOST: 'localhost',
+    USER: 'root',
+    PASSWORD: '',
+    DB: 'groupomania',
+    dialect: 'mysql',
+})
+
+databasetest.connect((err) =>{
+    if(err){
+        return err;
+    }
+    console.log('Mysql is connected');
+});

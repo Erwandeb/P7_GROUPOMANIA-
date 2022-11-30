@@ -1,14 +1,22 @@
-module.exports = {
+/*
+
+
+const mysql = require('mysql');
+
+const database = mysql.createConnection({
     HOST: 'localhost',
     USER: 'root',
     PASSWORD: '',
     DB: 'groupomania',
     dialect: 'mysql',
+})
 
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
+database.connect((err) =>{
+    if(err){
+        return err;
     }
-};
+    console.log('Mysql is connected');
+});
+
+
+*/
