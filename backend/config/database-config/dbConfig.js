@@ -1,6 +1,4 @@
 /*
-
-
 const mysql = require('mysql');
 
 const database = mysql.createConnection({
@@ -17,6 +15,5 @@ database.connect((err) =>{
     }
     console.log('Mysql is connected');
 });
-
 
 */

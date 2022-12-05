@@ -4,7 +4,6 @@ const jsonWebToken = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 
 
-
 exports.signUp = (req, res) => {
   const {email, password} = req.body;
     
@@ -33,6 +32,7 @@ exports.signUp = (req, res) => {
     });
     
 }
+
 
 
 exports.login = (req, res) => {

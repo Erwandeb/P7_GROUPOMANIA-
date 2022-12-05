@@ -16,7 +16,7 @@ router.post('/user', (req,res) =>{
         email:'test'
     }
     let sql = 'INSERT INTO user SET ?'
-    let query = db.query(sql, user, (err, result)=>{
+    let query = .query(sql, user, (err, result)=>{
         if(error){
             throw error
         }

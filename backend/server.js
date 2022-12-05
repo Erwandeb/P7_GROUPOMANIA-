@@ -24,18 +24,14 @@ const { connection } = require('mongoose');
 
 const app = express();
 
-
+/*
 app.use(cors());
 app.use(bodyparser.json());
 app.use(cookieparser());
-
+*/
 
 // Ressource
 // https://www.youtube.com/watch?v=EN6Dx22cPRI&ab_channel=TraversyMedia
-
-
-// User routes
-app.use('/api/auth/', userRoutes)
 
 
 // Serveur
@@ -44,18 +40,37 @@ app.listen(process.env.PORT, ()=>{
 })
 
 
-
 const databasetest = mysql.createConnection({
-    HOST: 'localhost',
-    USER: 'root',
-    PASSWORD: '',
-    DB: 'groupomania',
-    dialect: 'mysql',
+    host:'localhost',
+    user:'root',
+    password:'',
+    database:'groupomania'
 })
+
 
 databasetest.connect((err) =>{
     if(err){
-        return err;
+        throw err;
     }
     console.log('Mysql is connected');
 });
+
+
+// User routes
+// App.use('/api/auth/', userRoutes)
+
+// Add user
+app.get('/user', (req,res) =>{
+    let user = {
+        titre: 'erwan',
+        email:'test'
+    }
+    let sql = 'INSERT INTO user SET ?'
+    let query = databasetest.query(sql, user, (err, result)=>{
+        if(error){
+            throw error
+        }
+        console.log(result);
+        res.send('user has been added')
+    })
+  })
