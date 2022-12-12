@@ -4,70 +4,35 @@ const bcrypt = require('bcrypt');
 const {databaseclient } = require('../repositories/client');
 const fs = require("fs");
 
-/*
+
 exports.signUp = (req, res) => {
+    
   const {email, password} = req.body;
-    
-    if(!email || !password){
-        return res.status(400).json({message:"bad request"})
-    }
-    User.findOne({ email })
-    .then((userExist) => {
-      if(userExist){
-        return res.status(400).json({message:"Cet email existe déjà"}) 
-      }else{
-        bcrypt 
-            .hash(req.body.password, 10) 
-            .then((hash) =>{
-              const newUser = new User ({
-                    email, 
-                    password: hash
-              });
-            newUser
-                .save()
-                .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-                .catch((error) => res.status(500).json({ error :" Internal server error"}));
-          })
-      };
-    });
-}
-*/
 
-exports.signUp = (req, res) => {
-    
-    const {email, password} = req.body;
+  if(!email || !password){
+    return res.status(400).json({message:"bad request"})
+  }
+  const sql = `SELECT * FROM user WHERE email=? LIMIT 1`;
+  databaseclient.query( sql, [req.body.email], (err, result) =>{
 
-    if(!email || !password){
+    if(result.length > 0){
       return res.status(400).json({message:"bad request"})
     }
-    
-    const sql = `SELECT * FROM user WHERE email=?`;
-    databaseclient.execute( sql, [req.body.email], (err, result) =>{
-    
-        console.log(result);
-
-      /*
-      let user = result[0];
-      if (!user) {
-          bcrypt.hash(req.body.password, 10)
-              .then(hash => {
-                  const user = {
-                    email: req.body.email,
-                    password: hash,
-                  }
-                  let sql = `INSERT INTO user (email, password) VALUES (?,?)`;
-                  databaseclient.execute(sql, [user.email, user.password], function (err, result) {
-                      if (err) throw err;
-                      res.status(201).json({ message: `Utilisateur ${user.prenom} ajouté` });
-                  })
-              })
-              .catch(error => res.status(500).json({ error }));
-      } 
-      */
-      
+    bcrypt.hash(req.body.password, 10)
+      .then(hash => {
+          const user = {
+            email: req.body.email,
+            password: hash,
+          }
+          const sql = `INSERT INTO user (email, password) VALUES (?,?)`;
+          databaseclient.query(sql, [user.email, user.password], function (err, result) {
+              if (err) throw err;
+              res.status(201).json({ message: `Utilisateur ajouté` });
+          })
+      })
+      .catch(error => res.status(500).json({ error }));
     })
 };
-
 
 /*
 exports.login = (req, res) => {
@@ -100,3 +65,39 @@ exports.login = (req, res) => {
     .catch((error) => res.status(500).json({ error }));
 };
 */
+
+
+exports.login = (req, res, next) => {
+
+  const {email, password} = req.body;
+
+  if(!email || !password){
+    return res.status(400).json({message:"bad request"})
+  }
+  const sql = `SELECT * FROM user WHERE email=? LIMIT 1`;
+
+  databaseclient.query(sql, [req.body.email], function (err, result) {
+    
+    let user = result[0];
+    if (!user){
+      return res.status(400).json({message:"bad request"})
+    }
+    bcrypt
+      .compare(password, user.PASSWORD)
+      .then((valid) => {
+        if (!valid) {
+          return res.status(401).json({ error: "Ressource not found" });
+        }
+        res.status(200).json({
+            userId: user.id,
+            token: jwt.sign(
+                { userId: user.id },
+                process.env.SECRET_TOKEN_KEY,
+                { expiresIn: "1h" },
+            ),
+        })
+        })
+      .catch((error) => res.status(500).json({  error :"test"}));
+    
+  })
+};

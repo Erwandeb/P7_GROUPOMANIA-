@@ -16,11 +16,11 @@ const {databaseclient } = require('./repositories/client');
 
 const app = express();
 
-/*
+
 app.use(cors());
 app.use(bodyparser.json());
-app.use(cookieparser());
-*/
+
+
 
 // Ressource
 // https://www.youtube.com/watch?v=EN6Dx22cPRI&ab_channel=TraversyMedia
@@ -41,7 +41,7 @@ databaseclient.connect((err) =>{
 });
 
 
-app.use('auth/', userRoutes);
+app.use('/auth', userRoutes);
 
 
 /*
