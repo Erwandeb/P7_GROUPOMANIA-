@@ -1,26 +1,18 @@
 const express = require('express');
 const mysql = require('mysql');
-const userModel = require('./models/userModel');
 const userRoutes = require('./routes/user.routes');
-require('dotenv').config({path:'./config/.env'})
-require('./config/database-config/dbConfig');
+const dotenv = require('dotenv').config({path:'./config/.env'})
+
 const cors = require('cors');
 const bodyparser = require('body-parser');
 const cookieparser = require('cookie-parser');
 const path = require('path');
 const { connect } = require('http2');
-const database = require('./config/database-config/dbConfig');
-const { connection } = require('mongoose');
 
-/**
- * TO DO:
- *  1 Créer une base de données
- *  2 Créer table User avec email et MDP
- *  3 Créer un user pour tester
- *  4 Connecter l'API à la base de données
- *  5 Créer un model user 
- *  6 tester un user avec Postman
- */
+const { connection } = require('mongoose');
+const {createUser} = require('./repositories/user');
+const { REPL_MODE_STRICT } = require('repl');
+const {databaseclient } = require('./repositories/client');
 
 const app = express();
 
@@ -40,15 +32,8 @@ app.listen(process.env.PORT, ()=>{
 })
 
 
-const databasetest = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'',
-    database:'groupomania'
-})
 
-
-databasetest.connect((err) =>{
+databaseclient.connect((err) =>{
     if(err){
         throw err;
     }
@@ -56,21 +41,17 @@ databasetest.connect((err) =>{
 });
 
 
-// User routes
-// App.use('/api/auth/', userRoutes)
+app.use('auth/', userRoutes);
 
+
+/*
 // Add user
-app.get('/user', (req,res) =>{
+app.get('/user', async (req,res) =>{
     let user = {
-        titre: 'erwan',
-        email:'test'
+        email: 'erwan',
+        password:'test'
     }
-    let sql = 'INSERT INTO user SET ?'
-    let query = databasetest.query(sql, user, (err, result)=>{
-        if(error){
-            throw error
-        }
-        console.log(result);
-        res.send('user has been added')
-    })
-  })
+    await createUser('erwan', "test");
+    return res.status(200).send("OK");
+})
+*/

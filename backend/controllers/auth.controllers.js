@@ -1,9 +1,10 @@
-const User = require("../models/userModel");
-require("dotenv").config();
+const dotenv = require("dotenv").config();
 const jsonWebToken = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
+const {databaseclient } = require('../repositories/client');
+const fs = require("fs");
 
-
+/*
 exports.signUp = (req, res) => {
   const {email, password} = req.body;
     
@@ -15,7 +16,6 @@ exports.signUp = (req, res) => {
       if(userExist){
         return res.status(400).json({message:"Cet email existe déjà"}) 
       }else{
-        
         bcrypt 
             .hash(req.body.password, 10) 
             .then((hash) =>{
@@ -30,11 +30,46 @@ exports.signUp = (req, res) => {
           })
       };
     });
-    
 }
+*/
+
+exports.signUp = (req, res) => {
+    
+    const {email, password} = req.body;
+
+    if(!email || !password){
+      return res.status(400).json({message:"bad request"})
+    }
+    
+    const sql = `SELECT * FROM user WHERE email=?`;
+    databaseclient.execute( sql, [req.body.email], (err, result) =>{
+    
+        console.log(result);
+
+      /*
+      let user = result[0];
+      if (!user) {
+          bcrypt.hash(req.body.password, 10)
+              .then(hash => {
+                  const user = {
+                    email: req.body.email,
+                    password: hash,
+                  }
+                  let sql = `INSERT INTO user (email, password) VALUES (?,?)`;
+                  databaseclient.execute(sql, [user.email, user.password], function (err, result) {
+                      if (err) throw err;
+                      res.status(201).json({ message: `Utilisateur ${user.prenom} ajouté` });
+                  })
+              })
+              .catch(error => res.status(500).json({ error }));
+      } 
+      */
+      
+    })
+};
 
 
-
+/*
 exports.login = (req, res) => {
   const {email, password} = req.body;
   User.findOne({ email: req.body.email })
@@ -64,3 +99,4 @@ exports.login = (req, res) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
+*/
