@@ -13,7 +13,7 @@ exports.signUp = (req, res) => {
     return res.status(400).json({message:"bad request"})
   }
   const sql = `SELECT * FROM user WHERE email=? LIMIT 1`;
-  databaseclient.query( sql, [req.body.email], (err, result) =>{
+  databaseclient.query( sql, email, (err, result) =>{
 
     if(result.length > 0){
       return res.status(400).json({message:"bad request"})
@@ -74,30 +74,33 @@ exports.login = (req, res, next) => {
   if(!email || !password){
     return res.status(400).json({message:"bad request"})
   }
-  const sql = `SELECT * FROM user WHERE email=? LIMIT 1`;
 
-  databaseclient.query(sql, [req.body.email], function (err, result) {
+  const sql = `SELECT * FROM user WHERE email=? LIMIT 1`;
+  databaseclient.query(sql, email, function (err, result) {
     
     let user = result[0];
     if (!user){
       return res.status(400).json({message:"bad request"})
     }
-    bcrypt
-      .compare(password, user.PASSWORD)
-      .then((valid) => {
+    bcrypt.compare(password, user.PASSWORD)
+      .then(valid => {
+        console.log(valid);
         if (!valid) {
           return res.status(401).json({ error: "Ressource not found" });
         }
+        console.log('OK, user connected');
+        console.log()
+
         res.status(200).json({
-            userId: user.id,
-            token: jwt.sign(
-                { userId: user.id },
-                process.env.SECRET_TOKEN_KEY,
-                { expiresIn: "1h" },
-            ),
+          userId: user.email,
+          token: jsonWebToken.sign(
+              { userId: user.email },
+              process.env.SECRET_TOKEN_KEY,
+              { expiresIn: "24h" },
+          ),
         })
-        })
+      })
       .catch((error) => res.status(500).json({  error :"test"}));
-    
   })
 };
+

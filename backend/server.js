@@ -1,6 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
-const userRoutes = require('./routes/user.routes');
+const authentificationRoutes = require('./routes/auth.routes');
 const dotenv = require('dotenv').config({path:'./config/.env'})
 
 const cors = require('cors');
@@ -21,11 +21,6 @@ app.use(cors());
 app.use(bodyparser.json());
 
 
-
-// Ressource
-// https://www.youtube.com/watch?v=EN6Dx22cPRI&ab_channel=TraversyMedia
-
-
 // Serveur
 app.listen(process.env.PORT, ()=>{
     console.log(`Le serveur tourne sur le port ${process.env.PORT}.`)
@@ -41,17 +36,4 @@ databaseclient.connect((err) =>{
 });
 
 
-app.use('/auth', userRoutes);
-
-
-/*
-// Add user
-app.get('/user', async (req,res) =>{
-    let user = {
-        email: 'erwan',
-        password:'test'
-    }
-    await createUser('erwan', "test");
-    return res.status(200).send("OK");
-})
-*/
+app.use('/auth', authentificationRoutes);
