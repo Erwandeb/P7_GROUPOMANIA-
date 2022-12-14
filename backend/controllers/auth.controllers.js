@@ -6,7 +6,7 @@ const fs = require("fs");
 
 
 exports.signUp = (req, res) => {
-    
+  
   const {email, password} = req.body;
 
   if(!email || !password){
@@ -34,41 +34,12 @@ exports.signUp = (req, res) => {
     })
 };
 
-/*
-exports.login = (req, res) => {
-  const {email, password} = req.body;
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      if (!user) {
-        return res.status(401).json({ error: "Ressource not found" });
-      }
-      bcrypt
-        .compare(password, user.password)
-        .then((valid) => {
-          if (!valid) {
-            return res.status(401).json({ error: "Ressource not found" });
-          }
-          res.status(200).json({
-            userId: user._id,
-            token: jsonWebToken.sign(
-              { userId: user._id },
-              process.env.SECURITY_TOKEN,
-              {
-                expiresIn: "1h",
-              }
-            ),
-            message: "Utilisateur connecté !",
-          });
-        })
-        .catch((error) => res.status(500).json({ error }));
-    })
-    .catch((error) => res.status(500).json({ error }));
-};
-*/
+
 
 
 exports.login = (req, res, next) => {
 
+  console.log(req.body);
   const {email, password} = req.body;
 
   if(!email || !password){
@@ -89,10 +60,9 @@ exports.login = (req, res, next) => {
           return res.status(401).json({ error: "Ressource not found" });
         }
         console.log('OK, user connected');
-        console.log()
 
         res.status(200).json({
-          userId: user.email,
+          userId: user.user.id,
           token: jsonWebToken.sign(
               { userId: user.email },
               process.env.SECRET_TOKEN_KEY,
