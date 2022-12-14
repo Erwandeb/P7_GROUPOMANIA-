@@ -4,7 +4,6 @@ const fs = require("fs");
 
 exports.createPost = (req, res, next) => {
    
-
     const text = (req.body.text) ? req.body.text : " ";
 
     const post = {

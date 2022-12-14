@@ -36,10 +36,8 @@ exports.signUp = (req, res) => {
 
 
 
-
 exports.login = (req, res, next) => {
 
-  console.log(req.body);
   const {email, password} = req.body;
 
   if(!email || !password){
@@ -59,18 +57,17 @@ exports.login = (req, res, next) => {
         if (!valid) {
           return res.status(401).json({ error: "Ressource not found" });
         }
-        console.log('OK, user connected');
 
         res.status(200).json({
-          userId: user.user.id,
+          userId: user.ID,
           token: jsonWebToken.sign(
-              { userId: user.email },
-              process.env.SECRET_TOKEN_KEY,
+              { userId: user.ID },
+              process.env.SECURITY_TOKEN,
               { expiresIn: "24h" },
           ),
+
         })
       })
       .catch((error) => res.status(500).json({  error :"test"}));
   })
 };
-
