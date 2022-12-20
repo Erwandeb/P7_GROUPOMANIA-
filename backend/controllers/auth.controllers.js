@@ -53,7 +53,6 @@ exports.login = (req, res, next) => {
     }
     bcrypt.compare(password, user.PASSWORD)
       .then(valid => {
-        console.log(valid);
         if (!valid) {
           return res.status(401).json({ error: "Ressource not found" });
         }
@@ -68,6 +67,6 @@ exports.login = (req, res, next) => {
 
         })
       })
-      .catch((error) => res.status(500).json({  error :"test"}));
+      .catch((error) => res.status(500).json({  error :"internal serveur error"}));
   })
 };

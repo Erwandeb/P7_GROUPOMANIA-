@@ -1,8 +1,11 @@
 const express = require('express');
 const mysql = require('mysql');
 const authentificationRoutes = require('./routes/auth.routes');
+const postRoutes = require('./routes/posts.routes');
+const likesRoutes = require('./routes/likes.routes');
+const commentRoutes = require('./routes/comment.routes');
+const userRoutes = require('./routes/user.routes');
 const dotenv = require('dotenv').config({path:'./config/.env'})
-
 const cors = require('cors');
 const bodyparser = require('body-parser');
 const cookieparser = require('cookie-parser');
@@ -37,6 +40,7 @@ databaseclient.connect((err) =>{
 
 
 app.use('/auth', authentificationRoutes);
-app.use('/post', authentificationRoutes);
-app.use('/like', authentificationRoutes);
-app.use('/comment', authentificationRoutes);
+app.use('/post', postRoutes);
+//app.use('/like', likesRoutes);
+//app.use('/comment', commentRoutes);
+//app.use('/comment', userRoutes);
