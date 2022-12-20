@@ -58,12 +58,17 @@ exports.modifyPost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
 
-  
     let idPost = req.params.postid;
     let sql = `DELETE FROM posts WHERE  ID = ${idPost};`;
     
-    databaseclient.query(sql, function (err, result) {
+    console.log(req.body.userId);
+    databaseclient.query(sql,  function (err, result) {
+        console.log('ok test', result);
+        // result[0].authorId == req.body.userId
         if(!result){
+            return res.status(400).json({message:"bad request"})
+        }
+        if(result.affectedRows == 0){
             return res.status(400).json({message:"bad request"})
         }
         if(err) {
