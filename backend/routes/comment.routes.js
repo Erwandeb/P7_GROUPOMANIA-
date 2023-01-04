@@ -4,7 +4,7 @@ const authentification = require("../middlewares/authentification.js");
 const multer = require("../middlewares/multer-config");
 
 
- /*
+/*
 router.get("/", authentification, commentController.getAllComment);
 router.get("/:id", authentification , commentController.getOneComment);
 

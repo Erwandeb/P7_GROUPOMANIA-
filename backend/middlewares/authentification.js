@@ -2,7 +2,7 @@ require("dotenv").config();
 const jsonWebToken = require("jsonwebtoken");
 
 
-
+// Verifier si user existe en BDD 
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
