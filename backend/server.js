@@ -26,7 +26,7 @@ app.use(bodyparser.json());
 
 // Serveur
 app.listen(process.env.PORT, ()=>{
-    console.log(`Le serveur tourne sur le port ${process.env.PORT}.`)
+    console.log(`server running on port ${process.env.PORT}.`)
 })
 
 
@@ -35,7 +35,7 @@ databaseclient.connect((err) =>{
     if(err){
         throw err;
     }
-    console.log('Mysql is connected');
+    console.log('Database is connected');
 });
 
 

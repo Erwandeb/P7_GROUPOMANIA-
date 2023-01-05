@@ -37,6 +37,7 @@ exports.createPost = (req, res, next) => {
  * 
  */ 
 exports.getAllPost = (req, res, next) => {
+    /*
     let page = 0 ;
     let limit = 15;
     
@@ -73,7 +74,7 @@ exports.getAllPost = (req, res, next) => {
 
         });
     });
-
+*/
 };
 
 
@@ -109,6 +110,12 @@ exports.modifyPost = (req, res, next) => {
      * Si oui : traiter information
      * Si non : bad request
      * 
+     * 
+     * A revoir :
+     * Supprimer les éléments de la base et cleanner les images 
+     * Puis refaire une requete pour remplacer avec les éléments qui ont été donnés en Front
+     * En 2 temps
+     * 
      */
 
     const post = {
@@ -117,21 +124,35 @@ exports.modifyPost = (req, res, next) => {
         postId : req.params.postid,
     }
 
-    console.log(post.posImageUrl);
-    
-    if(req.file === `images/posts/${req.file.filename}`){
-        fs.unlink(`images/posts/${req.file.filename}`, () => {
-            console.log(`${req.file.filename} à été supprimé de la base`);
-        });
-    }
-    
-    let sql = `UPDATE posts SET CONTENT = ? , IMAGES = ? WHERE ID = ?`;
-    databaseclient.query(sql, [post.text, post.posImageUrl, post.postId], function (err, result) {
-        if(err) {
-            throw err;
+    let sqlCheckBase = `SELECT * FROM posts WHERE  ID = ${req.params.postid};`;
+    databaseclient.query(sqlCheckBase, function (err, result) {
+        console.log(result[0].IMAGES);
+
+        if(result){
+            console.log("requete client", post.posImageUrl);
+            console.log('retour BDD', result[0].IMAGES);
+
+            if(result[0].IMAGES != post.posImageUrl){ 
+                console.log("supp");
+
+                fs.unlink(`images/posts/${req.file.filename}`, () => {
+                    console.log(`${req.file.filename} à été supprimé de la base`);
+                });
+            }
+
+            // PROBLEME : l'image est supprimé au moment de sa création 
+
+            let sql = `UPDATE posts SET CONTENT = ? , IMAGES = ? WHERE ID = ?`;
+            databaseclient.query(sql, [post.text, post.posImageUrl, post.postId], function (err, result) {
+                if(err) {
+                    throw err;
+                }
+                res.status(201).json({ message: `Post modifié` });
+            })
         }
-        res.status(201).json({ message: `Post modifié` });
+
     })
+
 };
 
 
@@ -143,22 +164,15 @@ exports.modifyPost = (req, res, next) => {
  * 
  */ 
 exports.deletePost = (req, res, next) => {
-     /**
-     * 
-     * Verification avec une requete SQL 
-     * Si oui : traiter information
-     * Si non : bad request
-     * 
-     */
-    let sqlCheckBase = `SELECT 1 FROM posts WHERE  ID = ${req.params.postid};`;
+
+    let sqlCheckBase = `SELECT * FROM posts WHERE  ID = ${req.params.postid};`;
     databaseclient.query(sqlCheckBase,function (err, result) {
         if(result){
-            if(req.file){
+            if(result[0].IMAGES != null){
                 fs.unlink(`images/posts/${req.file.filename}`, () => {
                     console.log(`${req.file.filename} à été supprimé de la base`);
                 });
             }
-
             let sql = `DELETE FROM posts WHERE  ID = ${req.params.postid};`;
             databaseclient.query(sql,  function (err, result) {
                 if(err) {
@@ -166,23 +180,9 @@ exports.deletePost = (req, res, next) => {
                 }
                 res.status(201).json({ message: `Post supprimé` });
             })
-        
         }
-
     })
 
-    /*
-    let sql = `DELETE FROM posts WHERE  ID = ${req.params.postid};`;
-    databaseclient.query(sql,  function (err, result) {
-        if(!result || result.affectedRows == 0){
-            return res.status(400).json({message:" this is a bad request"})
-        }
-        if(err) {
-            throw err;
-        }
-        res.status(201).json({ message: `Post supprimé` });
-    })
-    */
 };
 
 
