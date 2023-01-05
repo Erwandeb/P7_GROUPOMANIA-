@@ -2,14 +2,6 @@ const {databaseclient } = require('../repositories/client');
 const fs = require("fs");
 
 
-// 401 = Token dans postman 
-
-
-/*
- * 
- * FINI
- *  
- */ 
 exports.createPost = (req, res, next) => {
     
     const post = {
@@ -29,13 +21,6 @@ exports.createPost = (req, res, next) => {
 };
 
 
-
-/*
- * 
- * A finir :
- * 
- * 
- */ 
 exports.getAllPost = (req, res, next) => {
     
     let page = 0 ;
@@ -78,10 +63,7 @@ exports.getAllPost = (req, res, next) => {
 };
 
 
-/*
- * - FINI
- *  filtrer par ID du post
- */ 
+
 exports.getOnePost = (req, res, next) => {
     let postid = req.params.postid;
     let sql = `SELECT * FROM posts WHERE ID = ${post} ORDER BY TIMEPOSTED DESC LIMIT 1`;
@@ -96,12 +78,7 @@ exports.getOnePost = (req, res, next) => {
 };
 
 
-/*
- * 
- * A finir :
- * - Gestion de la suppression des images dans la BDD
- *  
- */ 
+
 exports.modifyPost = (req, res, next) => {
  
     let sqlCheckBase = `SELECT * FROM posts WHERE  ID = ${req.params.postid};`;
@@ -138,12 +115,6 @@ exports.modifyPost = (req, res, next) => {
 
 
 
-/*
- * 
- * A finir :
- * FINI
- * 
- */ 
 exports.deletePost = (req, res, next) => {
 
     let sqlCheckBase = `SELECT * FROM posts WHERE  ID = ${req.params.postid};`;
@@ -165,6 +136,23 @@ exports.deletePost = (req, res, next) => {
     })
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
