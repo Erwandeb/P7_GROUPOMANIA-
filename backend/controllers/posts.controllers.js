@@ -37,7 +37,7 @@ exports.createPost = (req, res, next) => {
  * 
  */ 
 exports.getAllPost = (req, res, next) => {
-    /*
+    
     let page = 0 ;
     let limit = 15;
     
@@ -74,7 +74,7 @@ exports.getAllPost = (req, res, next) => {
 
         });
     });
-*/
+
 };
 
 
@@ -104,46 +104,27 @@ exports.getOnePost = (req, res, next) => {
  */ 
 exports.modifyPost = (req, res, next) => {
  
-    /**
-     * 
-     * Verification avec une requete SQL 
-     * Si oui : traiter information
-     * Si non : bad request
-     * 
-     * 
-     * A revoir :
-     * Supprimer les éléments de la base et cleanner les images 
-     * Puis refaire une requete pour remplacer avec les éléments qui ont été donnés en Front
-     * En 2 temps
-     * 
-     */
-
-    const post = {
-        text : req.body.text,
-        posImageUrl : req.file ? `${req.protocol}://${req.get('host')}/images/posts/${req.file.filename}`: null,
-        postId : req.params.postid,
-    }
-
     let sqlCheckBase = `SELECT * FROM posts WHERE  ID = ${req.params.postid};`;
     databaseclient.query(sqlCheckBase, function (err, result) {
-        console.log(result[0].IMAGES);
-
+    
         if(result){
-            console.log("requete client", post.posImageUrl);
-            console.log('retour BDD', result[0].IMAGES);
-
-            if(result[0].IMAGES != post.posImageUrl){ 
-                console.log("supp");
-
-                fs.unlink(`images/posts/${req.file.filename}`, () => {
-                    console.log(`${req.file.filename} à été supprimé de la base`);
+            const imageNameFromDatabase = result[0].IMAGES.split('/images/posts/')[1];
+            const imageNameFromFrontend = req.file.filename;
+       
+            if(imageNameFromDatabase != imageNameFromFrontend){ 
+             
+                fs.unlink(`images/posts/${imageNameFromDatabase}`, () => {
+                    console.log(`${imageNameFromDatabase} à été supprimé de la base`);
                 });
             }
 
-            // PROBLEME : l'image est supprimé au moment de sa création 
+            const newElementFromPostModified = {
+                text : req.body.text,
+                posImageUrl : req.file ? `${req.protocol}://${req.get('host')}/images/posts/${imageNameFromFrontend}`: null,
+            }
 
-            let sql = `UPDATE posts SET CONTENT = ? , IMAGES = ? WHERE ID = ?`;
-            databaseclient.query(sql, [post.text, post.posImageUrl, post.postId], function (err, result) {
+            let sql = `UPDATE posts SET CONTENT = ? , IMAGES = ? WHERE ID = ${req.params.postid}`;
+            databaseclient.query(sql, [newElementFromPostModified.text, newElementFromPostModified.posImageUrl], function (err, result) {
                 if(err) {
                     throw err;
                 }
