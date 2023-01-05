@@ -85,14 +85,19 @@ exports.modifyPost = (req, res, next) => {
     databaseclient.query(sqlCheckBase, function (err, result) {
     
         if(result){
-            const imageNameFromDatabase = result[0].IMAGES.split('/images/posts/')[1];
-            const imageNameFromFrontend = req.file.filename;
-       
-            if(imageNameFromDatabase != imageNameFromFrontend){ 
-             
-                fs.unlink(`images/posts/${imageNameFromDatabase}`, () => {
-                    console.log(`${imageNameFromDatabase} à été supprimé de la base`);
-                });
+
+            const imageNameFromFrontend = req.file ? req.file.filename : null;
+            let imageNameFromDatabase = null;
+
+            if(result[0].IMAGES != null){
+
+                imageNameFromDatabase = result[0].IMAGES.split('/images/posts/')[1];
+
+                if(imageNameFromDatabase != imageNameFromFrontend){ 
+                    fs.unlink(`images/posts/${imageNameFromDatabase}`, () => {
+                        console.log(`${imageNameFromDatabase} à été supprimé de la base`);
+                    });
+                }
             }
 
             const newElementFromPostModified = {
