@@ -26,7 +26,11 @@ exports.signUp = (req, res) => {
           }
           const sql = `INSERT INTO user (email, password) VALUES (?,?)`;
           databaseclient.query(sql, [user.email, user.password], function (err, result) {
-              if (err) throw err;
+            if(err) {
+              console.log(err);
+              res.status(500).json({ message: `Error: ${err}` });
+              return;
+          }
               res.status(201).json({ message: `Utilisateur ajouté` });
           })
       })

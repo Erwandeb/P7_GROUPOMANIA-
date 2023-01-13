@@ -6,7 +6,7 @@ const MIME_TYPES = {
   "image/png": "png",
 };
 
-const storage = multer.diskStorage({
+const storagePostsImages = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, "images/posts");
   },
@@ -16,4 +16,35 @@ const storage = multer.diskStorage({
   },
 });
 
-module.exports = multer({ storage: storage }).single("image");
+const storageUserProfilPictures = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, "images/profil-pictures");
+  },
+  filename: (req, file, callback) => {
+    const name = file.originalname.split(" ").join("_");
+    callback(null, name);
+  },
+});
+
+module.exports = {
+  postImageUpload: multer({ 
+    storage: storagePostsImages,
+    fileFilter: (req, file, cb) => {
+      if (Object.keys(MIME_TYPES).includes(file.mimetype)) {
+        cb(null, true);
+      } else {
+        cb(new Error("Invalid file type"), false);
+      }
+    }
+  }).array("images", 10),
+  profilPictureUpload: multer({ 
+    storage: storageUserProfilPictures,
+    fileFilter: (req, file, cb) => {
+      if (Object.keys(MIME_TYPES).includes(file.mimetype)) {
+        cb(null, true);
+      } else {
+        cb(new Error("Invalid file type"), false);
+      }
+    }
+  }).single("image"),
+};

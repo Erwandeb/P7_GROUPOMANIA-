@@ -12,11 +12,11 @@ exports.createComment = (req, res, next) => {
     let sql = `INSERT INTO comments (CONTENU, RATTACHED_POST_ID , AUTHOR_ID) VALUES (?,?,?);`;
 
     databaseclient.query(sql, [comment.text, comment.rattachedPostId, comment.authorId ], function (err, result) {
-        if (err) {
-            return res.status(500).json({
-                error: 'Internal server error'
-            });
-        };
+        if(err) {
+            console.log(err);
+            res.status(500).json({ message: `Error: ${err}` });
+            return;
+        }
         res.status(201).json({ message: `Commentaire ajouté` });
     })
     
@@ -31,10 +31,10 @@ exports.getAllComment = (req, res) => {
 
   const sql = `SELECT * FROM comments WHERE RATTACHED_POST_ID = ${req.params.postId} LIMIT ${limit} OFFSET ${offset};`
   databaseclient.query(sql, (err, results) => {
-    if (err) {
-      return res.status(500).json({
-        error: 'Error fetching comments'
-      });
+    if(err) {
+        console.log(err);
+        res.status(500).json({ message: `Error: ${err}` });
+        return;
     }
     res.status(200).json(results);
   });
@@ -54,11 +54,11 @@ exports.modifyComment = (req, res, next) => {
             
             let sql = `UPDATE comments SET CONTENU = ? WHERE ID = ${req.params.commentId}`;
             databaseclient.query(sql, [textCommentModified.text], function (err, result) {
-                if (err) {
-                    return res.status(500).json({
-                        error: 'Internal server error'
-                    });
-                };
+                if(err) {
+                    console.log(err);
+                    res.status(500).json({ message: `Error: ${err}` });
+                    return;
+                }
                 res.status(201).json({ message: `Commentaire modifié` });
             })
             
@@ -79,11 +79,11 @@ exports.deleteComment = (req, res, next) => {
       
             let sql = `DELETE FROM comments WHERE  ID = ${req.params.commentId};`;
             databaseclient.query(sql,  function (err, result) {
-                if (err) {
-                    return res.status(500).json({
-                        error: 'Internal server error'
-                    });
-                };
+                if(err) {
+                    console.log(err);
+                    res.status(500).json({ message: `Error: ${err}` });
+                    return;
+                }
                 res.status(201).json({ message: `Commentaire supprimé` });
             })
         } else{

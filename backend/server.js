@@ -43,3 +43,4 @@ app.use('/auth', authentificationRoutes);
 app.use('/post', postRoutes);
 app.use('/like', likesRoutes);
 app.use('/comment', commentRoutes);
+app.use('/user', userRoutes);
