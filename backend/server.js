@@ -41,6 +41,5 @@ databaseclient.connect((err) =>{
 
 app.use('/auth', authentificationRoutes);
 app.use('/post', postRoutes);
-//app.use('/like', likesRoutes);
+app.use('/like', likesRoutes);
 app.use('/comment', commentRoutes);
-//app.use('/comment', userRoutes);

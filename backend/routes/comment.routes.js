@@ -4,10 +4,10 @@ const authentification = require("../middlewares/authentification.js");
 
 
 
-router.get("/", authentification, commentController.getAllComment);
+router.get("/:postId", authentification, commentController.getAllComment);
 router.post("/create", authentification , commentController.createComment );
-router.put("/:id", authentification , commentController.modifyComment );
-router.delete("/:id", authentification , commentController.deleteComment);
+router.put("/:commentId", authentification , commentController.modifyComment );
+router.delete("/:commentId", authentification , commentController.deleteComment);
 
 
 module.exports = router;

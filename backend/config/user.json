@@ -1,0 +1,18 @@
+[
+    {
+        "email" : "albane@gmail.fr",
+        "password": "vivelesscouts"
+    },
+    {
+        "email" : "erwan@gmail.fr",
+        "password": "test"
+    },
+    {
+        "email" : "coline@gmail.fr",
+        "password": "test"
+    },
+    {
+        "email" : "toto@gmail.fr",
+        "password": "test"
+    }
+]

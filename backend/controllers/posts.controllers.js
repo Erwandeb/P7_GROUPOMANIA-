@@ -84,7 +84,7 @@ exports.modifyPost = (req, res, next) => {
     let sqlCheckBase = `SELECT * FROM posts WHERE  ID = ${req.params.postid};`;
     databaseclient.query(sqlCheckBase, function (err, result) {
     
-        if(result){
+        if(result && req.userId === result[0].AUTHOR_ID){
 
             const imageNameFromFrontend = req.file ? req.file.filename : null;
             let imageNameFromDatabase = null;
@@ -112,6 +112,8 @@ exports.modifyPost = (req, res, next) => {
                 }
                 res.status(201).json({ message: `Post modifié` });
             })
+        }else{
+            res.status(400).json({ message: `Bad Request` });
         }
 
     })
@@ -124,7 +126,7 @@ exports.deletePost = (req, res, next) => {
 
     let sqlCheckBase = `SELECT * FROM posts WHERE  ID = ${req.params.postid};`;
     databaseclient.query(sqlCheckBase,function (err, result) {
-        if(result){
+        if(result && req.userId === result[0].AUTHOR_ID){
             if(result[0].IMAGES != null){
                 fs.unlink(`images/posts/${req.file.filename}`, () => {
                     console.log(`${req.file.filename} à été supprimé de la base`);
@@ -137,6 +139,8 @@ exports.deletePost = (req, res, next) => {
                 }
                 res.status(201).json({ message: `Post supprimé` });
             })
+        }else{
+            res.status(400).json({ message: `Bad Request` });
         }
     })
 
