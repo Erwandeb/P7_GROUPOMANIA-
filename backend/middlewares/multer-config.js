@@ -33,7 +33,7 @@ module.exports = {
       if (Object.keys(MIME_TYPES).includes(file.mimetype)) {
         cb(null, true);
       } else {
-        cb(new Error("Invalid file type"), false);
+        throw new Error('new Error');
       }
     }
   }).array("images", 10),
@@ -43,7 +43,7 @@ module.exports = {
       if (Object.keys(MIME_TYPES).includes(file.mimetype)) {
         cb(null, true);
       } else {
-        cb(new Error("Invalid file type"), false);
+        throw new Error('new Error');
       }
     }
   }).single("image"),

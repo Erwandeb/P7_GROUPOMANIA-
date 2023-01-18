@@ -41,7 +41,7 @@ exports.liked = (req, res) => {
                     res.status(500).json({ message: `Error: ${err}` });
                     return;
                 }
-                res.status(201).json({ message: `like du post ${like.postId} est supprimé` });
+                res.status(204).send();
             });
         } else {
             let sqlInsert = `INSERT INTO likes (RATTACHED_POST_ID , AUTHOR_ID) VALUES (?,?);`;
