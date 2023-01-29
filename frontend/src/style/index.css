@@ -13,7 +13,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  --light-pink: #FFD7D7;
+  --red: #FD2D01;
+  --grey: #4E5166;
 }
+
 
 a {
   font-weight: 500;
@@ -30,6 +34,9 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--light-pink);
+  color: var(--grey);
+  font-family: 'Lato', sans-serif;
 }
 
 h1 {
@@ -55,6 +62,8 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+
 
 @media (prefers-color-scheme: light) {
   :root {
