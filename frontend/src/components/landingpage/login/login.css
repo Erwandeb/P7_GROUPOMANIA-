@@ -10,20 +10,20 @@
 }
 
 
-.sign-in .login-form .input-wrapper{
+.login-form .input-wrapper{
     display: flex;
     flex-direction: row;
     justify-content:space-between;
     margin-bottom: 10px;
     align-items: center;
 }
-.sign-in .login-form label{
+.login-form label{
     margin-right: 15px;
 }
-.sign-in .login-form input{
+.login-form input{
     height: 35px;
 }
-.sign-in .login-form .button{
+.login-form .button{
     margin-top: 30px;
     background-color: var(--light-pink);
 

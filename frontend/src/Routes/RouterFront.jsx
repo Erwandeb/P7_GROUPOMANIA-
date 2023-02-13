@@ -1,5 +1,5 @@
 import React from 'react';
-import LandingPage from '../pages/Landing-page.jsx';
+import LandingPage from '../pages/Landing-page/Landing-page.jsx';
 import HomePage from '../pages/Homepage-page.jsx';
 import User from '../pages/User-page.jsx';
 import NotFound from '../pages/Notfound-page.jsx';

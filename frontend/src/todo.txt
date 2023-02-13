@@ -1,0 +1,9 @@
+// Identification
+finir signup
+relooker LandingPage
+faire un bouton deconnexion qui supprime le token
+
+// Homepage
+faire un call APi pour afficher les posts
+construire un component d'affichage post
+faire un infinite scroll

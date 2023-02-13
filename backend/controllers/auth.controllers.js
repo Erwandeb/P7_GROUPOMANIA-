@@ -9,15 +9,19 @@ exports.signUp = (req, res) => {
   
   const {email, password} = req.body;
 
+  console.log(req.body.email);
   if(!email || !password){
     return res.status(400).json({message:"bad request"})
   }
   const sql = `SELECT * FROM user WHERE email=? LIMIT 1`;
   databaseclient.query( sql, email, (err, result) =>{
 
+    console.log(result.length);
+
     if(result.length > 0){
       return res.status(400).json({message:"bad request"})
     }
+
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
           const user = {
