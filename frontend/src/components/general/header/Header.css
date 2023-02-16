@@ -1,0 +1,23 @@
+header{
+    width: 100%;
+}
+
+
+header{
+    box-shadow: 0px 3px 4px #0000001f;
+    background-color: #fff;
+}
+
+header .container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+
+header .container .btn-actions{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

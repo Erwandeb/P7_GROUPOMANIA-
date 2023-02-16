@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import '../login/login.css'
 import { setUserData } from '../../../features/user.slice';
 import { login } from '../../../clienthttp/api';
-import HomePage from '../../../pages/Homepage-page';
+import HomePage from '../../../pages/Homepage/Homepage-page';
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 

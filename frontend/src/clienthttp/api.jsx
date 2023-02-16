@@ -33,3 +33,15 @@ export const signup = (email, password) => {
     return { error: 'Signup failed, please try again later.' };
   });
 };
+
+export const getAllPost = () => {
+  const URL = `${import.meta.env.VITE_APP_API_URL}/post`;
+  return axios({
+    method: "get",
+    url:URL,
+  })
+  .catch(error => {
+    console.error(error);
+    return { error: 'Signup failed, please try again later.' };
+  });
+};
