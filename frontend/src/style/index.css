@@ -6,6 +6,7 @@
   --light-pink: #FFD7D7;
   --red: #FD2D01;
   --grey: #4E5166;
+
 }
 
 a {
@@ -20,7 +21,7 @@ a:hover {
 body {
   height: 100vh;
   min-height: 850px;
-  background-color: #c5c5c5;
+  background-color: #dbdbdb;
   color: var(--grey);
   font-family: 'Lato', sans-serif;
   margin: 0;

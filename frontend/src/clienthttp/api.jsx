@@ -11,6 +11,11 @@ export const login = (email, password) => {
       password,
     },
   })
+  .then((res)=>{
+    const token = res.data.token;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    return res;
+  })
   .catch(error => {
     console.error(error);
     return { error: 'Login failed, please try again later.' };
@@ -33,6 +38,7 @@ export const signup = (email, password) => {
     return { error: 'Signup failed, please try again later.' };
   });
 };
+
 
 export const getAllPost = () => {
   const URL = `${import.meta.env.VITE_APP_API_URL}/post`;
