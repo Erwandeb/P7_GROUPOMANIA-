@@ -1,10 +1,20 @@
 .homepage{
     max-width: 1440px;
     width:calc( 90% - 100px);
-    margin: 100px auto 50px;
-    background-color: #fff;
-    box-shadow: 0px 3px 4px #0000001f;
+    margin: 50px auto 50px;
     border-radius: 6px;
+}
+
+.homepage .post-create-container{
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px 40px;
+}
+
+
+.homepage .homeage-baseline{
+    background-color: #fff;
+    border-radius: 5px;
 }
 
 .homepage .highlight{
@@ -12,5 +22,4 @@
    padding-bottom: 40px;
    padding-left: 15px;
    font-size: 26px;
-
 }

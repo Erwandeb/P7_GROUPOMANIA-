@@ -12,15 +12,16 @@ export const login = (email, password) => {
     },
   })
   .then((res)=>{
-    const token = res.data.token;
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    return res;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+    return res
   })
   .catch(error => {
     console.error(error);
     return { error: 'Login failed, please try again later.' };
   });
-};
+}; 
+
+
 
 
 export const signup = (email, password) => {

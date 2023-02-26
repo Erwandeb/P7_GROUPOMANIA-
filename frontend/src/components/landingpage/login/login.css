@@ -26,5 +26,9 @@
 .login-form .button{
     margin-top: 30px;
     background-color: var(--light-pink);
-
+    margin: 30px auto 0px;
+    text-align: center;
+    display: flex;
+    padding: 5px;
+    border: 0px;
 }

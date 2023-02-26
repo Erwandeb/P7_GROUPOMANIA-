@@ -8,11 +8,19 @@ const HomePage = () => {
         <>
         <Header/>
         <div className='homepage'>
-           <p className='highlight'>Suivez le fil d'actualité ici :</p>
+            <div className='post-create-container'>
+                <p className='baseline'>Qu'avez vous en -tête ?</p>
+                {/* AJOUTER LE BLOC CREATE POST ICI */}
+            </div>
+            <div className='homeage-baseline'>
+                <p className='highlight'>Suivez le fil d'actualité ici :</p>
+            </div>
+           
+            <div className='post-container'>
+                <Post/>
+            </div>
         </div>
-        <Post/>
         </>
-
     );
 };
 

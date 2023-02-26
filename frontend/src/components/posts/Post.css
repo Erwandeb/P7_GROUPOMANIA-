@@ -1,4 +1,24 @@
 .post{
     display: flex;
     flex-direction: column;
+    background-color: #fff;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 50px;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.post .auteur{
+   margin-left: 15px;
+   font-size: 16px;
+   font-weight: bold;
+   margin-bottom: 15px;
+}
+
+.post .auteur{
+    margin-left: 15px;
+    font-size: 14px;
+    margin-bottom: 15px;
 }
