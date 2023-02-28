@@ -1,0 +1,33 @@
+.create-post-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.create-post-form .input-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.create-post-form .input-wrapper #message{
+   width: 500px;
+   height: 100px;
+   border-radius: 5px;
+}
+
+.create-post-form .button{
+    background-color: rgb(252, 252, 252);
+    font-size: 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: black;
+    border: 1px solid black;
+    max-width: 300px;
+    padding: 5px 25px;
+    border-radius: 50px;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 1px 1px 1px grey;
+}

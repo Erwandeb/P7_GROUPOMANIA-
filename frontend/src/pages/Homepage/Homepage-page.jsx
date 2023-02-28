@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../../components/general/header/header';
 import '../Homepage/Homepage.css';
 import Post from '../../components/posts/Post'
+import Createpost from '../../components/createpost/Createpost';
 
 const HomePage = () => {
     return (
@@ -10,7 +11,7 @@ const HomePage = () => {
         <div className='homepage'>
             <div className='post-create-container'>
                 <p className='baseline'>Qu'avez vous en -tête ?</p>
-                {/* AJOUTER LE BLOC CREATE POST ICI */}
+                 <Createpost/>
             </div>
             <div className='homeage-baseline'>
                 <p className='highlight'>Suivez le fil d'actualité ici :</p>

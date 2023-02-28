@@ -8,13 +8,12 @@ const Posts = () => {
     const getPost = async (e) => {
         try {
           const res = await getAllPost();
-          console.log("resulats",res)
+          console.log("resulats", res)
           setPosts(res.data);
         } catch (err) {
           console.log(err.response || err.message);
         }
       };
-    
       useEffect(() => {
         getPost();
       }, []);
@@ -26,6 +25,7 @@ const Posts = () => {
           <div className="post" key={post.ID}>
               <span className="auteur">{post.AUTHOR_ID}</span>
               <p className='content'>{post.CONTENT ? post.CONTENT : ""}</p>
+              <img src={post.IMAGES} alt="" class="image" />
               {post.IMAGES ? <img src={post.IMAGES} alt="" class="image" /> : false}
           </div>
           ))}
