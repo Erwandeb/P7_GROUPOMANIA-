@@ -26,7 +26,7 @@ const Posts = () => {
           <div className="post" key={post.ID}>
               <span className="auteur">{post.AUTHOR_ID}</span>
               <p className='content'>{post.CONTENT ? post.CONTENT : ""}</p>
-             {/*  {post.IMAGES ? <img src={post.IMAGES} alt="" class="image" /> : ""} */}
+              {post.IMAGES ? <img src={post.IMAGES} alt="" class="image" /> : false}
           </div>
           ))}
         </>

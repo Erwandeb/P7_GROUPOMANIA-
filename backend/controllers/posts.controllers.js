@@ -27,6 +27,8 @@ exports.getAllPost = (req, res, next) => {
     
     let page = 0 ;
     let limit = 15;
+    let totalCount;
+    let totalPage;
     
     if(req.query.page){
         page = parseInt(req.query.page);
@@ -44,8 +46,7 @@ exports.getAllPost = (req, res, next) => {
         if(err) {
             throw err;
         }
-        const totalCount = resultCount[0].count;
-        console.log(totalCount);
+        totalCount = resultCount[0].count;
         let sql = `SELECT * FROM posts ORDER BY TIMEPOSTED DESC LIMIT ? OFFSET ?`;
         databaseclient.query(sql, [limit, page*limit,], function (err, result) {
             if(err) {
