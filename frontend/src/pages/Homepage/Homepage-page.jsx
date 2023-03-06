@@ -9,10 +9,6 @@ const HomePage = () => {
         <>
         <Header/>
         <div className='homepage'>
-            <div className='post-create-container'>
-                <p className='baseline'>Qu'avez vous en -tête ?</p>
-                 <Createpost/>
-            </div>
             <div className='homeage-baseline'>
                 <p className='highlight'>Suivez le fil d'actualité ici :</p>
             </div>
