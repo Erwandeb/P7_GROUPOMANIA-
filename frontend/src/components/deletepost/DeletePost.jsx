@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../deletepost/deletepost.css';
 
 const DeletePostBtn = () => {
-
+    const [deletePost, setDeletePost] = useState(null);
+   
     const deleteThePost = async (e) => {
       e.preventDefault();
       try {

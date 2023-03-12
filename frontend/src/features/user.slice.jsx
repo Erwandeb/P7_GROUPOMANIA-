@@ -6,8 +6,8 @@ export const userSlice = createSlice({
     userData: null,
   },
   reducers: {
-    setUserData: (state, { token }) => {
-      state.userData = token;
+    setUserData: (state, { payload: { token, userId } }) => {
+      state.userData = { token, userId };
     },
     logout: (state) => {
       state.userData = null;

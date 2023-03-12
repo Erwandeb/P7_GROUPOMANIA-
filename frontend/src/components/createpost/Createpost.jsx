@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { createPost } from '../../clienthttp/api';
 import '../createpost/Createpost.css';
 
-const Createpost = () => {
+const Createpost = ({ setNewPost }) => {
   const [message, setMessage] = useState('');
   const [images, setImages] = useState([]);
 
   const handleCreatePost = async (e) => {
     e.preventDefault();
     try {
-      const res = await createPost(message, images);
-      console.log(res.data);
+      if(message.trim() !== ""){
+        const res = await createPost(message, images);
+        setNewPost();
+        return;
+      }
+      // Message erreur
     } catch (err) {
       console.log(err.response || err.message);
     }

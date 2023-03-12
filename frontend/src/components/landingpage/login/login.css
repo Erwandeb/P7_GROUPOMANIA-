@@ -29,6 +29,9 @@
     margin: 30px auto 0px;
     text-align: center;
     display: flex;
-    padding: 5px;
+    padding: 7px 45px;
     border: 0px;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
 }
