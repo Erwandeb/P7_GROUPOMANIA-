@@ -11,10 +11,12 @@ const Createpost = ({ setNewPost }) => {
     try {
       if(message.trim() !== ""){
         const res = await createPost(message, images);
-        setNewPost();
+        setNewPost(message,images);
+       // setMessage('');
+       // setImages([]);
+        
         return;
       }
-      // Message erreur
     } catch (err) {
       console.log(err.response || err.message);
     }

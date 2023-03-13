@@ -43,34 +43,17 @@ export const signup = (email, password) => {
 };
 
 
-/* export const getAllPost = () => {
-  const URL = `${import.meta.env.VITE_APP_API_URL}/post`;
-  return axios({
-    method: "get",
-    url:URL,
-  })
-  .catch(error => {
-    console.error(error);
-    return { error: 'Signup failed, please try again later.' };
-  });
-}; */
-
 export const getAllPost = (pageNumber, limit, query) => {
   const URL = `${import.meta.env.VITE_APP_API_URL}/post?page=${pageNumber}&limit=${limit}`;
   return axios({
     method: "get",
     url: URL,
   })
-/*   .then((res)=>{
-    console.log(res)
-  }) */
   .catch(error => {
     console.error(error);
     return { error: 'Signup failed, please try again later.' };
   });
 };
-
-
 
 
 export const createPost = (text, images) => {
